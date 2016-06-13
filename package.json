@@ -1,0 +1,27 @@
+{
+  "name": "monitor",
+  "version": "0.0.1",
+  "description": "Testing monitor for IODiCUS",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lukem512/iodicus-monitor.git"
+  },
+  "keywords": [
+    "iodicus"
+  ],
+  "author": "Luke Mitchell",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lukem512/iodicus-monitor/issues"
+  },
+  "homepage": "https://github.com/lukem512/iodicus-monitor",
+  "dependencies": {
+    "mock_ebe": "github:lukem512/mock-ebe",
+    "mock_secure_server": "github:lukem512/mock-secure-server"
+  }
+}

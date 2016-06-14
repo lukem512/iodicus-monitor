@@ -21,8 +21,6 @@
   },
   "homepage": "https://github.com/lukem512/iodicus-monitor",
   "dependencies": {
-    "mock_ebe": "github:lukem512/mock-ebe",
-    "mock_secure_server": "github:lukem512/mock-secure-server",
     "socket.io-client": "^1.4.6"
   }
 }

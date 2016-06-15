@@ -21,7 +21,7 @@ let test_ep_message_queue_success = false;  // RabbitMQ provided correct message
 function connect_to_socket(name, host, port) {
   let socket_uri = host + ':' + port;
 
-  console.info('[SOCKET] Connecting to ' + name + ' at \'' + socket_uri + '\'');
+  console.info('[MONITOR] Connecting to ' + name + ' via the SOCKET interface at \'' + socket_uri + '\'');
   return io.connect(socket_uri, { reconnect: true });
 };
 

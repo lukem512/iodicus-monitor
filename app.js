@@ -2,7 +2,7 @@
 let io = require('socket.io-client');
 
 let DEVICE_PARAMETER_ID = process.env.DEVICE_PARAMETER_ID || 114;
-let TARGET_VALUE = process.env.TARGET_VALUE || 123;
+let TARGET_VALUE = process.env.TARGET_VALUE || Math.floor(Math.random() * 1000) + 1;
 let GATEWAY_MAC_ID = process.env.GATEWAY_MAC_ID || 11223344556677;
 
 let SOCKET_WAIT_TIME = process.env.SOCKET_WAIT_TIME || 3000;

@@ -41,4 +41,3 @@ EXPOSE $MOCK_EBE_SOCKET_PORT
 # Command to run application
 COPY ./monitor_entrypoint.sh /
 COPY ./mock_secure_server_entrypoint.sh /
-ENTRYPOINT [ "/monitor_entrypoint.sh" ]

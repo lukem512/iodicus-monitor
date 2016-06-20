@@ -52,7 +52,7 @@ ebe_socket.on('connect', data => {
 
 // Subscribe to the receive event
 ebe_socket.on('receive', data => {
-  console.info('[SOCKET] Received \'receive\' event from ' + MOCK_EBE_SOCKET_NAME);
+  console.info('[MONITOR] Received \'receive\' event from ' + MOCK_EBE_SOCKET_NAME);
   let obj = JSON.parse(data);
 
   /* { current: 105,
@@ -70,7 +70,7 @@ ebe_socket.on('receive', data => {
         console.log('[MONITOR] Change request acknowledged by Message Queue')
       }
 
-      if (obj.intent.toString() == obj.current.toString()) {
+      if (obj.current && obj.intent.toString() == obj.current.toString()) {
         console.error('[MONITOR] No change will occur - the final Message Queue event will not be received');
       }
 
@@ -114,7 +114,7 @@ ebe_socket.on('connect', data => {
 
 // Subscribe to the receive event
 secure_server_socket.on('receive', data => {
-  console.info('[SOCKET] Received \'receive\' event from ' + MOCK_SECURE_SERVER_SOCKET_NAME);
+  console.info('[MONITOR] Received \'receive\' event from ' + MOCK_SECURE_SERVER_SOCKET_NAME);
   let obj = JSON.parse(data);
 
   /* {
@@ -146,7 +146,7 @@ secure_server_socket.emit('subscribe', { eventName: 'receive' });
 
 // Subscribe to the send event
 secure_server_socket.on('send', data => {
-  console.info('[SOCKET] Received \'send\' event from ' + MOCK_SECURE_SERVER_SOCKET_NAME);
+  console.info('[MONITOR] Received \'send\' event from ' + MOCK_SECURE_SERVER_SOCKET_NAME);
   let obj = JSON.parse(data);
 
   /*
@@ -252,7 +252,7 @@ function test_checker() {
 // Perform the test
 function test() {
   console.log('[MONITOR] Starting test...');
-  console.info('[SOCKET] Calling requestUpdateDeviceData');
+  console.info('[MONITOR] Calling requestUpdateDeviceData');
 
   // Call the mock_ebe to make a device update
   ebe_socket.emit('call', {
@@ -262,8 +262,8 @@ function test() {
       target_value: TARGET_VALUE
     }
   }, function(err, success) {
-    if (err) return console.error('[SOCKET] Error:', err);
-    console.info('[SOCKET] Resulting value was ' + success);
+    if (err) return console.error('[MONITOR] Error:', err);
+    console.info('[MONITOR] Resulting value was ' + success);
 
     if (success) {
       console.log('[MONITOR] REST API is online!');

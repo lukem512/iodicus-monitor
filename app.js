@@ -1,9 +1,9 @@
 "use strict"
 let io = require('socket.io-client');
 
-let DEVICE_PARAMETER_ID = process.env.DEVICE_PARAMETER_ID || 114;
-let TARGET_VALUE = process.env.TARGET_VALUE || Math.floor(Math.random() * 1000) + 1;
-let GATEWAY_MAC_ID = process.env.GATEWAY_MAC_ID || 11223344556677;
+let DEVICE_PARAMETER_ID = process.env.DEVICE_PARAMETER_ID || "114";
+let TARGET_VALUE = process.env.TARGET_VALUE || (Math.floor(Math.random() * 1000) + 1).toString();
+let GATEWAY_MAC_ID = process.env.GATEWAY_MAC_ID || "11223344556677";
 
 let SOCKET_WAIT_TIME = process.env.SOCKET_WAIT_TIME || 3000;
 let TEST_WAIT_TIME = process.env.TEST_WAIT_TIME || 15000;
@@ -177,14 +177,15 @@ secure_server_socket.on('send', data => {
   */
 
   // For now, just check that the target value matches
+  // TODO - fix this goddam bug too.
   if (obj.DataType == 0) {
     let gddo = obj.Data.GDDO;
-    if (gddo.GMACID == GATEWAY_MAC_ID) {
+    if (gddo.GMACID.toString() == GATEWAY_MAC_ID) {
       gddo.ZNDS.some(znds => {
         let found = false;
         znds.DDDO.some(dddo => {
           dddo.DPDO.some(dpdo => {
-            if (dpdo.CV == TARGET_VALUE) {
+            if (dpdo.CV.toString() == TARGET_VALUE) {
               found = true;
               console.log('[MONITOR] Secure Server WebSocket interface is online!');
               test_ss_ws_send_success = true;

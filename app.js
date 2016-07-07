@@ -1,7 +1,7 @@
 "use strict"
 let io = require('socket.io-client');
 
-let DEVICE_PARAMETER_ID = process.env.DEVICE_PARAMETER_ID || "114";
+let DEVICE_PARAMETER_ID = process.env.DEVICE_PARAMETER_ID || "1";
 let TARGET_VALUE = process.env.TARGET_VALUE || (Math.floor(Math.random() * 1000) + 1).toString();
 let GATEWAY_MAC_ID = process.env.GATEWAY_MAC_ID || "11223344556677";
 
@@ -26,12 +26,13 @@ function connect_to_socket(name, host, port) {
 };
 
 // Method to check for socket connections
-var ebe_socket_connected, secure_server_socket_connected = false;
+var ebe_socket_connected = false, secure_server_socket_connected = false;
 
 function wait_for_sockets() {
   if (ebe_socket_connected && secure_server_socket_connected) {
     test();
   } else {
+    console.log(`Waiting for socket connection (EBE: ${ebe_socket_connected}, SS: ${secure_server_socket_connected})`)
     setTimeout(wait_for_sockets, SOCKET_WAIT_TIME);
   }
 }
@@ -177,7 +178,6 @@ secure_server_socket.on('send', data => {
   */
 
   // For now, just check that the target value matches
-  // TODO - fix this goddam bug too.
   if (obj.DataType == 0) {
     let gddo = obj.Data.GDDO;
     if (gddo.GMACID.toString() == GATEWAY_MAC_ID) {
@@ -253,7 +253,7 @@ function test_checker() {
 // Perform the test
 function test() {
   console.log('[MONITOR] Starting test...');
-  console.info('[MONITOR] Calling requestUpdateDeviceData');
+  console.info(`[MONITOR] Calling requestUpdateDeviceData with device_parameter_id = ${DEVICE_PARAMETER_ID} and target_value = ${TARGET_VALUE}`);
 
   // Call the mock_ebe to make a device update
   ebe_socket.emit('call', {
